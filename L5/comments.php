@@ -16,5 +16,5 @@ echo 'test6', PHP_EOL;
  */
 function testSMTH($testA, $testB)
 {
-    return "test"
+    return "test";
 }
