@@ -28,4 +28,7 @@ $test =343;
 
 var_dump($test, $link);
 
+$var1 = 'qwerty';
+$$var1 = 1155;
 
+var_dump($qwerty);
