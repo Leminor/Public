@@ -1,0 +1,7 @@
+version: '3'
+services:
+    app:
+      build: Docker/php
+      container_name: Project
+      volumes:
+      - ./:/var/www
