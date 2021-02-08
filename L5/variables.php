@@ -19,3 +19,13 @@ echo $fruit, PHP_EOL;
 
 $t1weq = 213;
 $_te_st = 324;
+
+$test = 'test';
+$link =&$test;
+
+$test =343;
+
+
+var_dump($test, $link);
+
+
