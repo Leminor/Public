@@ -14,3 +14,11 @@ $result = $result + 2;
 $result += 2;
 echo $result, PHP_EOL;
 
+$number = 5;
+$number = $number + 1;
+$number++;
+$number--;
+
+$number2 = 5;
+++$number2;
+--$number2;
