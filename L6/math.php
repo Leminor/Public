@@ -22,3 +22,4 @@ $number--;
 $number2 = 5;
 ++$number2;
 --$number2;
+
