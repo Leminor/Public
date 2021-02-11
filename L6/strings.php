@@ -9,7 +9,7 @@ print PHP_EOL;
 
 $name = 'Alex';
 echo "Hello {$name}\n";
-echo 'Hello $name\n' PHP_EOL;
+echo 'Hello $name\n', PHP_EOL;
 
 $htmlid = 1;
 
@@ -25,6 +25,9 @@ HTML;
 echo $heredoc, PHP_EOL;
 
 echo "Hello user with name \"{$name}\"\n";
+
+$concat = 'This string ' . 'is concatenated' . PHP_EOL;
+echo $concat;
 
 
 
