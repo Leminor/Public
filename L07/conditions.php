@@ -30,3 +30,16 @@ switch ($age) {
     default:
         echo 'Access denied', PHP_EOL;
 }
+
+//HW Calculator + print 123
+
+$x = ;
+if ($x == 1) {
+    echo 1;
+}
+if ($x == 2 {
+    echo 2;
+}
+if ($x == 2 {
+    echo 2;
+}
