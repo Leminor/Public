@@ -3,7 +3,7 @@
 $age = readline ('Enter your age: ');
 
 if (!is_numeric($age)) {
-    exit ('Data is incorrect'), PHP_EOL;
+    exit ('Data is incorrect'); PHP_EOL;
 }
 
 if($age >= 18 && $age < 60) {
@@ -33,13 +33,13 @@ switch ($age) {
 
 //HW Calculator + print 123
 
-$x = ;
+$x = a;
 if ($x == 1) {
     echo 1;
 }
-if ($x == 2 {
+if ($x == 2) {
     echo 2;
 }
-if ($x == 2 {
-    echo 2;
+if ($x == 3) {
+    echo 3;
 }
