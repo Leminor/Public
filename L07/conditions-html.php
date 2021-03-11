@@ -1,8 +1,3 @@
-<?php
-$randomInt = random_int(1, 100)
-$IsAuthuser =
-
-?>
 
 <!doctype html>
 <html lang="en">
@@ -14,11 +9,11 @@ $IsAuthuser =
     <title>Document</title>
 </head>
 <body>
-<?php if (random_int(1, 100) % 2 === 0) ?>
-    <h1>Hello</h1>
-    <p>La la la</p>
-<?php else: ?>
-    <h1>Hello guest</h1>
-<?php endif ?>
+    <?php if (random_int(1, 100) % 2 === 0): ?>
+        <h1>Hello</h1>
+        <p>La la la</p>
+    <?php else: ?>
+        <h1>Hello guest</h1>
+    <?php endif ?>
 </body>
 </html>
