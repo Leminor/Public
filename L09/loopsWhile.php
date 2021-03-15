@@ -9,7 +9,17 @@ while ($k < 6) {
 }
 
 $handle = fopen(__DIR__ . '/multiply_table.php', 'rb');
-while ($line = fgets($handle, 1024)) {
+while ($line = fgets($handle)) {
    var_dump($line);
 }
 fclose($handle);
+
+echo $eol;
+
+$array = ['test', 'qwerty', '12345'];
+while($array) {
+    echo array_shift($array), $eol;
+}
+
+
+echo $eol;

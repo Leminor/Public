@@ -9,8 +9,8 @@ do {
     echo $number, $eol;
 } while (in_array($number, $data));
 
+echo $eol;
 
-//??????????????
 $number = random_int(1, 10);
 while (in_array($number, $data)) {
     $number = random_int(1, 10);
