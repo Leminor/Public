@@ -16,7 +16,7 @@ if ($userDir) {
 
 $rout .= $directoryName;
 
-if (!is_dir($rout)) {
+if (is_dir($rout)) {
     $message = sprintf('Directory "%s" is already exists', $directoryName);
     exit($message);
 }
