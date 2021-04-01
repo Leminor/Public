@@ -1,0 +1,127 @@
+CREATE TABLE users (
+    id int(5) unsigned auto_increment primary key,
+    name varchar(255) NOT NULL,
+    age int(3) NULL
+);
+
+INSERT INTO users (name, age) VALUES ('Alex', 22);
+
+INSERT INTO users (name, age)
+VALUES
+       ('Marie', 22),
+       ('Rom', 26),
+       ('Firsi', 22),
+       ('Nexo', 24);
+
+SELECT * FROM users;
+
+SELECT name FROM users;
+
+CREATE TABLE user_contacts
+(
+    id      int(11) unsigned auto_increment primary key,
+    type    enum ('phone', 'email', 'address', 'fax'),
+    contact varchar(255) not null unique,
+    user_id int(5) unsigned,
+    CONSTRAINT `fk-user_contacts-user_id-users-id`
+        FOREIGN KEY (user_id)
+            REFERENCES users (id)
+            ON DELETE RESTRICT
+            ON UPDATE CASCADE
+) ENGINE InnoDB;
+
+INSERT INTO user_contacts (type, contact, user_id)
+VALUES
+       ('phone', '+380494227463728', 4),
+       ('email', 'dwk42sk@dkasjd.ua', 4),
+       ('fax', '+380394274448300', 4);
+
+
+ALTER TABLE users ADD COLUMN gender VARCHAR(100) NULL AFTER name;
+ALTER TABLE users DROP COLUMN gender;
+
+UPDATE user_contacts SET contact = 'madfe@fdsdsd.com' WHERE user_id = 1 AND type = 'email';
+
+DELETE FROM user_contacts WHERE user_id = 3 AND type = 'email';
+
+SELECT *
+FROM users AS u
+LEFT JOIN user_contacts AS uc ON uc.user_id = u.id;
+
+SELECT *
+FROM users
+LEFT JOIN user_contacts ON user_contacts.user_id = users.id;
+
+SELECT
+    users.id,
+    users.name,
+    COUNT(user_contacts.id) AS contacts_count
+FROM users
+LEFT JOIN user_contacts ON user_contacts.user_id = users.id
+GROUP BY users.id;
+
+# user main
+SELECT
+    users.id,
+    users.name,
+    COUNT(user_contacts.id) AS contacts_count
+FROM users
+LEFT JOIN user_contacts ON user_contacts.user_id = users.id
+WHERE user_contacts.type = 'phone'
+GROUP BY users.id
+HAVING COUNT(user_contacts.id) > 0;
+
+# contacts main
+SELECT *
+FROM users
+RIGHT JOIN user_contacts ON user_contacts.user_id = users.id;
+
+# not nulls from any table
+SELECT *
+FROM users
+INNER JOIN user_contacts ON user_contacts.user_id = users.id;
+
+SELECT * FROM users WHERE age IS NOT NULL;
+
+SELECT * FROM user_contacts WHERE type = 'phone' OR type = 'fax';
+SELECT * FROM user_contacts WHERE type IN ('phone', 'fax');
+
+# desc - another sorting order
+SELECT * FROM user_contacts WHERE type IN ('phone', 'fax') ORDER BY type DESC;
+
+SELECT * FROM users ORDER BY age, name DESC;
+
+# limit of strings
+SELECT * FROM users ORDER BY age, name DESC LIMIT 2;
+
+# skip first 4 strings and show 2 next
+SELECT * FROM users ORDER BY age, name DESC LIMIT 2 OFFSET 4;
+
+# without data
+CREATE TABLE users_2 LIKE users;
+
+# without keys
+CREATE TABLE users_3 AS SELECT * FROM users;
+
+CREATE TABLE users_4 LIKE users;
+INSERT INTO users_4 SELECT * FROM users;
+
+CREATE TABLE user_contacts_2 LIKE user_contacts;
+INSERT INTO user_contacts_2 SELECT * FROM user_contacts;
+
+ALTER TABLE user_contacts_2 DROP KEY `fk-user_contacts-user_id-users-id`;
+
+#add for key between new tables
+ALTER TABLE user_contacts_2
+    ADD CONSTRAINT `fk-user_contacts_2-user_id-users_4-id`
+        FOREIGN KEY (user_id) REFERENCES users_4 (id)
+            ON UPDATE CASCADE
+            ON DELETE RESTRICT;
+
+# Shows request to create table, that we can use
+SHOW CREATE TABLE user_contacts_2;
+
+DELETE FROM users_2;
+DROP TABLE users_3;
+
+DROP DATABASE db;
