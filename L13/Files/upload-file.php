@@ -32,6 +32,7 @@ $allowedTypes = [
     'image/png',
     'image/gif',
     'application/zip',
+    'application/x-zip-compressed',
 ];
 
 $errors = [];
