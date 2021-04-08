@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/lib/security.php';
+
 require_once __DIR__ . '/lib/files_render.php';
 $storage = __DIR__ . '/storage';
 $userDir = $_GET['rout'] ?? '';
@@ -30,6 +32,9 @@ $fileHtml = drawFile($dir, $file);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
           crossorigin="anonymous">
+
+
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -60,6 +65,15 @@ $fileHtml = drawFile($dir, $file);
 
 </head>
 <body class="d-flex flex-column h-100">
+<header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="logout.php" class="btn btn-danger">
+                Log Out
+            </a>
+        </div>
+    </div>
+</header>
 <main class="flex-shrink-0">
     <div class="container">
         <form action="create-dir.php" method="post">
@@ -81,7 +95,7 @@ $fileHtml = drawFile($dir, $file);
             </div>
         </form>
         <ul class="list-group">
-
+            <li class="list-group-item disabled" aria-disabled="true"><?= 'Storage' . $userDir ?></li>
             <?php usort ($routs, "sortFileType");
             foreach ($routs as $rout) : ?>
             <?php
@@ -142,3 +156,22 @@ function sortFileType ($a, $b) {
 }
 ?>
 
+<?php
+function sortFileType1 ($a, $b) {
+    if (is_dir($a)) {
+        return is_dir($b) ? strnatcasecmp($a, $b) : -1;
+    }
+
+    if (is_dir($b)) {
+        return 1;
+    }
+
+    $aExt = pathinfo($a, PATHINFO_EXTENSION);
+    $bExt = pathinfo($b, PATHINFO_EXTENSION);
+
+    if ($aExt === $bExt) {
+        return strnatcasecmp($a, $b);
+    }
+    return strcasecmp($aExt, $bExt);
+}
+?>

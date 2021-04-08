@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/lib/security.php';
+
 $directoryName = $_POST['directoryName'] ?? null;
 
 // $directoryName = isset($_POST['directoryName']) ? $_POST['directoryName']

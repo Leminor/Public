@@ -1,18 +1,44 @@
 <?php
 
-$dir = __DIR__ . "/storage/";
+$db = getDBConnection();
 
-$files = scandir($dir);
-$files = array_filter($files, function (string $file): bool {
-    return !in_array($file, ['.', '..', '.gitignore']);
-});
+$sql = <<<SQL
+    SELECT 
+        comments.id,
+        comments.comment,
+        comments.created_at,
+        comments.updated_at,
+        users.name,
+        users.age
+FROM comments
+INNER JOIN users ON comments.user_id = users.id
+ORDER BY comments.created_at DESC
+SQL;
 
-$storage = [];
-foreach ($files as $file) {
-    $jsonData = file_get_contents("{$dir}/{$file}");
-    $data = json_decode($jsonData, true);
-    $storage = array_merge($storage, $data);
+//$sql = 'SELECT * FROM comments INNER JOIN users ON comments.user_id = users.id';
+$stmt = mysqli_prepare($db, $sql);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-}
 
-return $storage;
+
+
+
+
+//$dir = __DIR__ . "/storage/";
+//
+//$files = scandir($dir);
+//$files = array_filter($files, function (string $file): bool {
+//    return !in_array($file, ['.', '..', '.gitignore']);
+//});
+//
+//$storage = [];
+//foreach ($files as $file) {
+//    $jsonData = file_get_contents("{$dir}/{$file}");
+//    $data = json_decode($jsonData, true);
+//    $storage = array_merge($storage, $data);
+//
+//}
+//
+//return $storage;

@@ -1,6 +1,9 @@
 <?php
+
+require_once __DIR__ . '/Lib/security.php';
 $comments = require  __DIR__ . '/get-comment.php';
 
+require_once __DIR__ . 'pagination.php';
 ?>
 
 
@@ -44,21 +47,30 @@ $comments = require  __DIR__ . '/get-comment.php';
 </head>
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="logout.php" class="btn btn-danger">
+                    Log Out
+                </a>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <form action="add-comment.php" method="post">
-            <div class="input-group mb-3 mt-3">
-                <span class="input-group-text" id="addon-wrapping">Author name:</span>
-                <input name="author" type="text" class="form-control" placeholder="Enter your name" aria-label="Author name" aria-describedby="addon-wrapping" required>
-            </div>
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">Gender:</label>
-                <select name="gender" class="form-select" id="inputGroupSelect01">
-                    <option selected>Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
+<!--            <div class="input-group mb-3 mt-3">-->
+<!--                <span class="input-group-text" id="addon-wrapping">Author name:</span>-->
+<!--                <input name="author" type="text" class="form-control" placeholder="Enter your name" aria-label="Author name" aria-describedby="addon-wrapping" required>-->
+<!--            </div>-->
+<!--            <div class="input-group mb-3">-->
+<!--                <label class="input-group-text" for="inputGroupSelect01">Gender:</label>-->
+<!--                <select name="gender" class="form-select" id="inputGroupSelect01">-->
+<!--                    <option selected>Select gender</option>-->
+<!--                    <option value="male">Male</option>-->
+<!--                    <option value="female">Female</option>-->
+<!--                    <option value="other">Other</option>-->
+<!--                </select>-->
+<!--            </div>-->
             <div class="form-floating">
                 <textarea name="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
                 <label for="floatingTextarea2">Comment</label>
@@ -77,9 +89,10 @@ $comments = require  __DIR__ . '/get-comment.php';
             </blockquote>
             <figure class="text-end ">
                 <figcaption class="blockquote-footer">
-                    <?= $comment['author'], "," ?>
-                    <?= $comment['gender'], "<br>" ?>
-                    <?= date('Y-m-d H:i:s', $comment['time']), "<br>" ?>
+                    <?= $comment['name'], "<br>" ?>
+                    <?= $comment['age'], 'years old', "<br>" ?>
+                    <?= $comment['created_at']?>
+<!--                    --><?//= date('Y-m-d H:i:s', $comment['time']), "<br>" ?>
                 </figcaption>
             </figure>
         </figure>
@@ -87,6 +100,7 @@ $comments = require  __DIR__ . '/get-comment.php';
             <?php endforeach; ?>
 
         </div>
+<?= $pagination; ?>
     </div>
 </main>
 

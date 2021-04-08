@@ -8,18 +8,24 @@ require_once __DIR__ . '/db.php';
 
 $isGuest = $_SESSION['isGuest'] ?? true;
 
+$users = [
+    [
+        'login' => 'test@test.com',
+        'password' => '$argon2id$v=19$m=65536,t=4,p=1$MGt5LmZVdG94SlRLZGJ3WA$/nSjUiO9/EtA2TCE8HMS1L7gsHbENzgk1UPN5K0A/Vk', //123123
+    ],
+    [
+        'login' => 'qwerty@test.com',
+        'password' => '$argon2id$v=19$m=65536,t=4,p=1$MmQ2N0d4RjJLb29pOGtwdQ$ZAPsVY60hVRYv1cr/cb44nVIjf0+mputlWh/cpATEn8', //qqq123
+    ],
+];
 
-if ($isGuest)
-{
+if ($isGuest) {
     $login = $_POST['login'] ?? null;
     $password = $_POST['password'] ?? null;
 
-
-    if ($login && $password)
-    {
+    if ($login && $password) {
         $user = findUser($login);
-        if ($user && password_verify($password, $user['password']))
-        {
+        if ($user && password_verify($password, $user['password'])) {
             $_SESSION['isGuest'] = false;
             $_SESSION['user'] = $user;
         } else {
@@ -32,6 +38,7 @@ if ($isGuest)
         exit;
     }
 }
+
 
 function findUser(string $login): ?array
 {
