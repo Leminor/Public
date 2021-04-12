@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/Lib/security.php';
-$comments = require  __DIR__ . '/get-comment.php';
+const RECORDS_ON_PAGE = 5;
 
-require_once __DIR__ . 'pagination.php';
+require_once __DIR__ . '/Lib/security.php';
+$comments = require __DIR__ . '/get-comment.php';
+
+$pagination =  require_once __DIR__ . '/pagination.php';
+
 ?>
 
 
@@ -71,7 +74,10 @@ require_once __DIR__ . 'pagination.php';
 <!--                    <option value="other">Other</option>-->
 <!--                </select>-->
 <!--            </div>-->
-            <div class="form-floating">
+            <div class="mt-3">
+            <b> Add your comment:</b>
+            </div>
+            <div class="form-floating mt-3">
                 <textarea name="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
                 <label for="floatingTextarea2">Comment</label>
             </div>
@@ -80,9 +86,8 @@ require_once __DIR__ . 'pagination.php';
             </div>
             <button type="submit" class="btn btn-success input-group mb-3">Send comment</button>
         </form>
-        <div >
+        <div>
         <?php foreach ($comments as $comment) :?>
-
         <figure class="form-control">
             <blockquote class="blockquote">
                 <p><?= nl2br ($comment['comment']) ?></p>
@@ -90,17 +95,22 @@ require_once __DIR__ . 'pagination.php';
             <figure class="text-end ">
                 <figcaption class="blockquote-footer">
                     <?= $comment['name'], "<br>" ?>
-                    <?= $comment['age'], 'years old', "<br>" ?>
-                    <?= $comment['created_at']?>
-<!--                    --><?//= date('Y-m-d H:i:s', $comment['time']), "<br>" ?>
+                    <?= $comment['age'], ' years old', "<br>" ?>
+                    <?= $comment['created_at'] ?>
                 </figcaption>
+                <a href="editPage.php?id=<?= $comment['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                <a href="delete.php?id=<?= $comment['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
             </figure>
         </figure>
 
             <?php endforeach; ?>
 
         </div>
+
+
 <?= $pagination; ?>
+
+
     </div>
 </main>
 

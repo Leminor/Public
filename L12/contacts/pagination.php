@@ -1,7 +1,5 @@
 <?php
 
-const RECORDS_ON_PAGE = 5;
-
 $db = getDBConnection();
 
 $sql = 'SELECT COUNT(1) AS count FROM comments';
@@ -15,13 +13,24 @@ $pages = ceil($count / RECORDS_ON_PAGE);
 $currentPage = $_GET['page'] ?? 1;
 
 $pagesHtml = '';
+
 for ($page = 1; $page <= $pages; $page++) {
-    $class = $page === (int) $currentPage ? 'active' : '';
-    $pagesHtml .= <<<HTML
-        <li class="page-item {$class}">
-        <a class="page-link" href="index.php?page={$page}">{$page}</a>
-        </li>
-        HTML;
+//    $class = $page === (int) $currentPage ? 'active' : '';
+//    $pagesHtml .= <<<HTML
+//        <li class="page-item {$class}">
+//        <a class="page-link" href="index.php?page={$page}">{$page}</a>
+//        </li>
+//        HTML;
+    if($page === (int) $currentPage) {
+        $pagesHtml .= <<<HTML
+<option selected>{$currentPage}</option>
+HTML;
+    } else {
+        $pagesHtml .= <<<HTML
+<option value=index.php?page={$page}>{$page}</option>
+HTML;
+    }
+
 }
 
 $prevClass = $currentPage <= 1 ? 'disabled' : '';
@@ -36,8 +45,15 @@ return <<<HTML
                 <li class="page-item {$prevClass}">
                     <a class="page-link" href="index.php?page={$prevPage}">Previous</a>
                 </li>
+            <select 
+            onchange="location = this.value;" 
+            class="page-selector form-control" 
+            style="width: 70px">
                {$pagesHtml}
-                <li class="page-item"><a class="page-link" href="index.php?page={$nextPage}">Next</a></li>
+            </select>
+                <li class="page-item {$nextClass}">
+                <a class="page-link" href="index.php?page={$nextPage}">Next</a>
+                </li>
             </ul>
         </nav>
 HTML;

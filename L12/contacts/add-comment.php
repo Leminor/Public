@@ -2,9 +2,10 @@
 
 require_once __DIR__ . '/Lib/security.php';
 
+
 $comment = $_POST['comment'] ?? '';
 
-if (!comment) {
+if (!$comment) {
     setFlash('errors', ['Comment is required']);
     header('Location: index.php');
     exit;

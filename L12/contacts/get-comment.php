@@ -2,6 +2,10 @@
 
 $db = getDBConnection();
 
+$currentPage = $_GET['page'] ?? 1;
+$limit = RECORDS_ON_PAGE;
+$offset = ($currentPage - 1) * $limit;
+
 $sql = <<<SQL
     SELECT 
         comments.id,
@@ -13,15 +17,15 @@ $sql = <<<SQL
 FROM comments
 INNER JOIN users ON comments.user_id = users.id
 ORDER BY comments.created_at DESC
+LIMIT ? OFFSET ?
 SQL;
 
 //$sql = 'SELECT * FROM comments INNER JOIN users ON comments.user_id = users.id';
 $stmt = mysqli_prepare($db, $sql);
+mysqli_stmt_bind_param($stmt, 'ii', $limit, $offset);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
-$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-
+return mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 
 
