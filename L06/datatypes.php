@@ -13,9 +13,9 @@ $file = fopen(__DIR__ . '/math.php', 'rb'); //example
 fclose($file); //example
 
 $resource = $file; //for work with file
-$callable = static function {
-
-}; //ispolniaemiy
+//$callable = static function {
+//
+//}; //ispolniaemiy
 
 var_dump((string)1.002);
 var_dump((int) '521.7');

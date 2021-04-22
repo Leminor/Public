@@ -6,6 +6,8 @@ require_once __DIR__ . "/User.php";
 
 var_dump(User::TYPE);
 
+// if properties are PUBLIC
+
 //$user = new User();
 //$user->name = "Alex";
 //$user->age = 24;
@@ -28,6 +30,30 @@ var_dump(User::TYPE);
 
 //var_dump($user, $vipUser);
 
+// If properties are PROTECTED
+
+$user = new User(); // -> if u have "return $this" in method
+$user
+    ->setName( "Alex")
+    ->setAge(24)
+    ->setGender( 'male');
+
+$user2 = new User();
+$user2->setName( "Mary");
+$user2->setAge(40);
+$user2->setGender( 'female');
+
+$user->printInfo();
+
+$vipUser = new VipUser();
+$vipUser->setName( "Arno");
+$vipUser->setAge(45);
+$vipUser->setGender( 'male');
 
 $vipUser->printInfo();
 $vipUser->makeCoffee();
+
+var_dump($user->getName());
+
+$vipUser->makeCoffee();
+$user->makeCoffee();

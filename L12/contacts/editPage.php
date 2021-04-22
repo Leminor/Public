@@ -13,7 +13,8 @@ $sql = <<<SQL
         comments.created_at,
         comments.updated_at,
         users.name,
-        users.age
+        users.age,
+        users.id
 FROM comments
 INNER JOIN users ON comments.user_id = users.id
 WHERE comments.id = ?
@@ -24,7 +25,6 @@ mysqli_stmt_bind_param($stmt, 'i', $commentID);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $comments = mysqli_fetch_assoc($result);
-
 
 ?>
 

@@ -19,6 +19,15 @@ class User
         echo "INFO: {$this->name}, {$this->age} years old";
     }
 
+    public function makeCoffee() :void
+    {
+        echo 'Here is your coffee<br>';
+    }
+
+    public function getName () : string
+    {
+        return $this->name;
+    }
 
     //
 
@@ -38,6 +47,11 @@ class User
     {
         $this->gender = $gender;
         return $this;
+    }
+
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
     }
 
     //

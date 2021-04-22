@@ -2,8 +2,8 @@
 
 class VipUser extends User
 {
-    function makeCoffee(): void
+    public function makeCoffee(): void
     {
-        print_r("Here is your coffee");
+       echo 'Gimme coffee <br>';
     }
 }

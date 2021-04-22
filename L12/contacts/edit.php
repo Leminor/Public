@@ -4,6 +4,7 @@ $comment = $_POST['comment'] ?? '';
 $commentID = $_GET['id'];
 
 require_once __DIR__ . '/Lib/db.php';
+
 $db = getDBConnection();
 
     $sqlEdit = <<<SQL
