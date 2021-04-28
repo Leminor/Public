@@ -15,7 +15,7 @@ class Router
         $this->dispatcher = $dispatcher;
     }
 
-    public function init(): void
+    public function init(): mixed
     {
         $controllerClass = $this->getControllerClass();
 
@@ -29,7 +29,7 @@ class Router
         if (!method_exists($controller, $actionMethod)) {
             throw new \RuntimeException("Method {$actionMethod} is undefined for controller {$controllerClass}", 404);
         }
-        $controller->{$actionMethod}();
+        return $controller->{$actionMethod}();
     }
 
     private function getControllerClass(): string

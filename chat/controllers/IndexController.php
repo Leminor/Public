@@ -2,10 +2,17 @@
 
 namespace controllers;
 
+use components\App;
+
 class IndexController
 {
-     public function actionIndex()
+     public function actionIndex(): string
      {
-         echo __METHOD__;
+        return App::instance()
+            ->getView()
+            ->render('index/index', [
+                'userName' => 'Lexo',
+                'age' => 24]);
+
      }
 }
