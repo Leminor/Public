@@ -27,6 +27,11 @@ abstract class AbstractDispatcher
     }
     protected function prepareParts(string $request)
     {
+        $paramsStart = stripos($request, '?');
+        if ($paramsStart !== false)
+        {
+            $request = substr($request, 0, $paramsStart);
+        }
         $parts = explode('/', trim($request, '/')); // ltrim - cut left, trim - cut left+right, rtrim - cut right
         $parts = array_filter($parts);
         $this->controllerPart = $parts[0] ?? self::DEFAULT_PART;

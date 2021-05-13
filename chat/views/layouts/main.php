@@ -1,12 +1,14 @@
 <?php
 
+use components\App;
 use components\View;
+$auth = App::instance()->getSession()->get(\models\User::USER);
+
 
 /**
  * @var View $this
- * @var string $userName
+ * @var \models\User $auth
  */
-
 
 ?>
 
@@ -53,11 +55,11 @@ use components\View;
 <body class="d-flex flex-column h-100">
 <header>
     <div class="container">
-        Hi, <?=$userName?>
+        Hi, <?=$auth->getUser()->name?>
     </div>
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a href="logout.php" class="btn btn-danger">
+            <a href="/user/logout" class="btn btn-danger">
                 Log Out
             </a>
         </div>

@@ -4,10 +4,14 @@
 namespace components;
 
 
+use components\web\Sessions;
+
 class App
 {
     private const ROUTER = 'router';
     private const VIEW = 'view';
+    private const DB = 'db';
+    private const SESSION = 'session';
 
     private Storage $config;
     private Storage $components;
@@ -35,6 +39,8 @@ class App
 
     public function run(): mixed
     {
+        $this->initDB();
+        $this->initSessions();
         $this->initView();
         return $this->initRouter();
     }
@@ -59,8 +65,7 @@ class App
             $this->config->get('views.dir'),
             $this->config->get('views.ext'),
             $this->config->get('views.layouts.dir'),
-            $this->config->get('views.layouts.default'),
-            $this->config->get('views.layouts.guest'));
+            $this->config->get('views.layouts.default'));
 
         $this->components->set(self::VIEW, $view);
     }
@@ -68,6 +73,38 @@ class App
     public function getView(): View
     {
         return $this->components->get(self::VIEW);
+    }
+
+    public function initDB(): void
+    {
+        $db = new DB(
+            $this->config->get('db.host'),
+            $this->config->get('db.user'),
+            $this->config->get('db.password'),
+            $this->config->get('db.name'),
+        );
+        $this->components->set(self::DB, $db);
+    }
+
+    public function getDb(): DB
+    {
+        return $this->components->get(self::DB);
+    }
+
+    public function initSessions(): void
+    {
+        $this->components->set(self::SESSION, new Sessions());
+    }
+
+    public function getSession(): Sessions
+    {
+        return $this->components->get(self::SESSION);
+    }
+
+
+    public function config(): Storage
+    {
+        return $this->config;
     }
 
     private function __construct(array $config)

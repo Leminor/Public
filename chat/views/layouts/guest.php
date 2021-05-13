@@ -52,7 +52,11 @@ use components\View;
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
     <div class="container">
-
+        <?php foreach (\components\App::instance()->getSession()->getFlash('errors', []) as $error) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $error ?>
+            </div>
+        <?php endforeach; ?>
         <?= $this->getContent() ?>
 
     </div>

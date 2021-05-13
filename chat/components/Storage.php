@@ -3,6 +3,8 @@
 
 namespace components;
 
+use helpers\ArraysHelper;
+
 class Storage
 {
     private array $data;
@@ -20,15 +22,6 @@ class Storage
 
     public function get(string $key, mixed $default = null): mixed
     {
-        $parts = explode('.', $key);
-        $data = $this->data;
-        foreach ($parts as $part) {
-            if (array_key_exists($part, $data))
-            {
-                $data = $data[$part];
-            }
-
-        }
-        return $data;
+        return ArraysHelper::find($this->data, $key, $default);
     }
 }

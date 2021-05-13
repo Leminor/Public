@@ -1,6 +1,12 @@
 <?php
 
 return [
+    'db' => [
+        'host' => 'db',
+        'user' => 'user',
+        'password' => 'pwd',
+        'name' => 'db',
+    ],
     'views' => [
         'dir' => __DIR__ . '/../views',
         'ext' => '.php',
